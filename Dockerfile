@@ -15,12 +15,13 @@ RUN \
   echo "**** install runtime packages ****" && \
   apk add --no-cache \
     bash \
-    tzdata && \
+    tzdata \
+    sshfs && \
   echo "**** configure fuse ****" && \
   sed -ri 's/^#user_allow_other/user_allow_other/' /etc/fuse.conf && \
   echo "**** cleanup ****" && \
   rm -rf /tmp/*
 
 COPY root/ /
-VOLUME ["/sshfs"]
+VOLUME ["/sshfs", "/ssh"]
 CMD ["/init"]
